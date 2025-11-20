@@ -315,7 +315,7 @@ export default function NuovoClientePage() {
 
             {/* Sezione Ritenuta d'Acconto */}
             <div className="mt-4 p-4 bg-amber-50 rounded-lg">
-              <h4 className="font-semibold text-gray-900 mb-4">Ritenuta d'Acconto</h4>
+              <h4 className="font-semibold text-gray-900 mb-4">Ritenuta d&apos;Acconto</h4>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="flex items-center gap-6">

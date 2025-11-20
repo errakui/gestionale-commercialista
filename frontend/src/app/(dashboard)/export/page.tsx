@@ -22,7 +22,7 @@ export default function ExportPage() {
             </div>
             
             <p className="text-sm text-gray-600 mb-4">
-              Esporta l'anagrafica completa di tutti i clienti
+              Esporta l&apos;anagrafica completa di tutti i clienti
             </p>
 
             <div className="space-y-2">
@@ -107,7 +107,7 @@ export default function ExportPage() {
         </div>
 
         <div className="card mt-8">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Note sull'Export</h3>
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">Note sull&apos;Export</h3>
           <ul className="space-y-2 text-sm text-gray-700">
             <li className="flex items-start gap-2">
               <span className="text-blue-600 mt-1">•</span>
@@ -119,11 +119,11 @@ export default function ExportPage() {
             </li>
             <li className="flex items-start gap-2">
               <span className="text-blue-600 mt-1">•</span>
-              <span>L'export include tutti i dati visibili nella sezione corrispondente</span>
+              <span>L&apos;export include tutti i dati visibili nella sezione corrispondente</span>
             </li>
             <li className="flex items-start gap-2">
               <span className="text-blue-600 mt-1">•</span>
-              <span>Per esportare dati filtrati, utilizzare i filtri nella rispettiva sezione prima dell'export</span>
+              <span>Per esportare dati filtrati, utilizzare i filtri nella rispettiva sezione prima dell&apos;export</span>
             </li>
           </ul>
         </div>

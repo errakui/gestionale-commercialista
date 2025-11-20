@@ -77,6 +77,34 @@ export class CreateClienteDto {
 
   @IsOptional()
   @IsBoolean()
+  esenteIva?: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  soggettoIva?: boolean;
+
+  @IsOptional()
+  @IsNumber()
+  @Min(0)
+  @Max(100)
+  aliquotaIva?: number;
+
+  @IsOptional()
+  @IsBoolean()
+  esenteRitenuta?: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  soggettoRitenuta?: boolean;
+
+  @IsOptional()
+  @IsNumber()
+  @Min(0)
+  @Max(100)
+  aliquotaRitenuta?: number;
+
+  @IsOptional()
+  @IsBoolean()
   attivo?: boolean;
 
   @IsOptional()

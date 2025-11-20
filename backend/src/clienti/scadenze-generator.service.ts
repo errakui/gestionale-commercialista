@@ -33,7 +33,7 @@ export class ScadenzeGeneratorService {
       .delete()
       .where('cliente_id = :clienteId', { clienteId: cliente.id })
       .andWhere('stato != :stato', { stato: StatoScadenza.FATTO })
-      .andWhere('data_scadenza >= CURDATE()')
+      .andWhere('data_scadenza >= CURRENT_DATE')
       .execute();
 
     // Rigenera
@@ -47,19 +47,15 @@ export class ScadenzeGeneratorService {
 
     // Logica di applicabilità
     query.andWhere(
-      '(template.applicabileTutti = :tutti ' +
-      'OR (template.applicabileIvaMensile = :ivaMensile AND :periodicitaIva = :mensile) ' +
-      'OR (template.applicabileIvaTrimestrale = :ivaTrimestrale AND :periodicitaIva = :trimestrale) ' +
-      'OR (template.applicabileImmobili = :immobili AND :haImmobili = :hasImmobili))',
+      '(template.applicabileTutti = true ' +
+      'OR (template.applicabileIvaMensile = true AND :periodicitaIva = :mensile) ' +
+      'OR (template.applicabileIvaTrimestrale = true AND :periodicitaIva = :trimestrale) ' +
+      'OR (template.applicabileImmobili = true AND :haImmobili = true))',
       {
-        tutti: true,
-        ivaMensile: true,
         mensile: PeriodicitaIva.MENSILE,
         periodicitaIva: cliente.periodicitaIva,
-        ivaTrimestrale: true,
         trimestrale: PeriodicitaIva.TRIMESTRALE,
-        immobili: true,
-        hasImmobili: cliente.haImmobili,
+        haImmobili: cliente.haImmobili,
       }
     );
 

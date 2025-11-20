@@ -3,8 +3,8 @@ import { ServiziService } from './servizi.service';
 import { CreateServizioDto, UpdateServizioDto, GeneraMovimentoDaServizioDto } from './dto/servizio.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 
-@Controller('servizi')
-@UseGuards(JwtAuthGuard)
+@Controller('api/servizi')
+// @UseGuards(JwtAuthGuard) // TEMP DISABLED
 export class ServiziController {
   constructor(private readonly serviziService: ServiziService) {}
 

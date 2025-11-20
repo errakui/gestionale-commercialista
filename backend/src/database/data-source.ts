@@ -4,6 +4,7 @@ import { config } from 'dotenv';
 config();
 
 const isDev = process.env.NODE_ENV !== 'production';
+const isRailway = process.env.DB_HOST?.includes('railway.net');
 
 export const AppDataSource = new DataSource({
   type: 'postgres',
@@ -16,6 +17,6 @@ export const AppDataSource = new DataSource({
   migrations: [isDev ? 'src/database/migrations/*{.ts,.js}' : 'dist/database/migrations/*{.ts,.js}'],
   synchronize: false,
   logging: isDev,
-  ssl: !isDev ? { rejectUnauthorized: false } : false,
+  ssl: isRailway ? { rejectUnauthorized: false } : false,
 });
 

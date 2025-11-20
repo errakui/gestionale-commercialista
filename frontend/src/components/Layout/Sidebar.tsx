@@ -10,6 +10,7 @@ import {
   Settings,
   FileDown,
   LogOut,
+  Briefcase,
 } from 'lucide-react';
 import { authAPI } from '@/lib/api';
 import { useRouter } from 'next/navigation';
@@ -17,6 +18,7 @@ import { useRouter } from 'next/navigation';
 const menuItems = [
   { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/clienti', label: 'Clienti', icon: Users },
+  { href: '/servizi', label: 'Servizi', icon: Briefcase },
   { href: '/scadenze', label: 'Scadenze', icon: Calendar },
   { href: '/cassa', label: 'Flussi di Cassa', icon: Wallet },
   { href: '/export', label: 'Import/Export', icon: FileDown },

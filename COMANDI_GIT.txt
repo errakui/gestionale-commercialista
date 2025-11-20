@@ -1,0 +1,130 @@
+===========================================
+🚀 COMANDI RAPIDI PER GITHUB
+===========================================
+
+📌 STEP 1: Crea repository su GitHub
+→ Vai su: https://github.com/new
+→ Nome: gestionale-commercialista
+→ Public o Private
+→ NON aggiungere README/gitignore
+→ Clicca "Create repository"
+
+===========================================
+
+📌 STEP 2: Collega e Pusha (COPIA QUESTI COMANDI)
+
+⚠️ IMPORTANTE: Sostituisci "TUO_USERNAME" con il tuo username GitHub!
+
+-------------------------------------------
+# Aggiungi remote GitHub
+git remote add origin https://github.com/TUO_USERNAME/gestionale-commercialista.git
+
+# Verifica remote
+git remote -v
+
+# Pusha il codice
+git push -u origin main
+-------------------------------------------
+
+Se chiede username/password:
+- Username: il tuo username GitHub
+- Password: usa un Personal Access Token (non password!)
+
+Come creare token:
+→ https://github.com/settings/tokens
+→ Generate new token (classic)
+→ Seleziona "repo"
+→ Copia il token e usalo come password
+
+===========================================
+
+📌 STEP 3: Per aggiornamenti futuri
+
+-------------------------------------------
+# Quando fai modifiche al codice:
+
+git add .
+git commit -m "Descrizione modifiche"
+git push
+-------------------------------------------
+
+✅ Vercel e Railway faranno il redeploy automatico!
+
+===========================================
+
+📌 COMANDI UTILI
+
+-------------------------------------------
+# Vedi lo stato dei file
+git status
+
+# Vedi la storia dei commit
+git log --oneline
+
+# Vedi le modifiche non ancora committate
+git diff
+
+# Annulla modifiche non committate
+git checkout -- nome_file
+
+# Crea un nuovo branch
+git checkout -b feature/nuova-funzionalita
+-------------------------------------------
+
+===========================================
+
+🎯 PROSSIMI PASSI DOPO IL PUSH:
+
+1. ✅ Verifica su GitHub che il codice sia caricato
+   → https://github.com/TUO_USERNAME/gestionale-commercialista
+
+2. ✅ Deploy Backend su Railway
+   → https://railway.app
+   → New Project → Deploy from GitHub
+   → Aggiungi MySQL database
+   → Configura variabili ambiente
+
+3. ✅ Deploy Frontend su Vercel  
+   → https://vercel.com
+   → Import Project
+   → Seleziona repository
+   → Root Directory: frontend
+   → Aggiungi NEXT_PUBLIC_API_URL
+
+4. ✅ Esegui migration su Railway
+   → railway login
+   → railway link
+   → railway run npm run typeorm migration:run
+
+===========================================
+
+📚 DOCUMENTI UTILI:
+
+- README.md → Guida completa del progetto
+- DEPLOY_GITHUB_VERCEL.md → Guida deploy passo-passo
+- STATO_PROGETTO_FINALE.md → Funzionalità implementate
+
+===========================================
+
+🆘 PROBLEMI?
+
+1. "Permission denied" quando fai push
+   → Usa Personal Access Token invece della password
+
+2. "Remote already exists"  
+   → git remote remove origin
+   → Poi ri-aggiungi con il comando sopra
+
+3. "Everything up-to-date"
+   → Hai già fatto il push! Controlla su GitHub
+
+===========================================
+
+✅ IL CODICE È GIÀ COMMITTATO!
+
+Commit fatto: 102 files, 10279+ linee di codice
+Branch: main
+Status: ✅ Ready to push
+
+===========================================
+

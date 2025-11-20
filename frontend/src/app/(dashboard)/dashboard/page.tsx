@@ -42,6 +42,22 @@ export default function DashboardPage() {
     },
   });
 
+  const { data: miglioriClienti } = useQuery({
+    queryKey: ['migliori-clienti'],
+    queryFn: async () => {
+      const response = await dashboardAPI.getMiglioriClienti();
+      return response.data;
+    },
+  });
+
+  const { data: spesePrincipali } = useQuery({
+    queryKey: ['spese-principali'],
+    queryFn: async () => {
+      const response = await dashboardAPI.getSpesePrincipali();
+      return response.data;
+    },
+  });
+
   const formatCurrency = (value: number) => {
     return new Intl.NumberFormat('it-IT', {
       style: 'currency',
@@ -275,10 +291,69 @@ export default function DashboardPage() {
           </div>
         </div>
 
+        {/* Migliori Clienti + Spese Principali */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Migliori Clienti */}
+          <div className="card">
+            <h2 className="text-lg font-semibold text-gray-900 mb-4">
+              🏆 Migliori Clienti Anno Corrente
+            </h2>
+            {miglioriClienti && miglioriClienti.length > 0 ? (
+              <div className="space-y-3">
+                {miglioriClienti.map((cliente: any, index: number) => (
+                  <div key={cliente.id} className="flex items-center justify-between p-3 bg-gradient-to-r from-blue-50 to-white rounded-lg border border-blue-100">
+                    <div className="flex items-center gap-3">
+                      <div className="flex-shrink-0 w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-sm">
+                        {index + 1}
+                      </div>
+                      <div>
+                        <p className="font-semibold text-gray-900">{cliente.nome}</p>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-lg font-bold text-blue-600">
+                        {formatCurrency(cliente.totaleEntrate)}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="text-gray-500 text-center py-8">Nessun dato disponibile</p>
+            )}
+          </div>
+
+          {/* Spese Principali */}
+          <div className="card">
+            <h2 className="text-lg font-semibold text-gray-900 mb-4">
+              💰 Spese Principali Anno Corrente
+            </h2>
+            {spesePrincipali && spesePrincipali.length > 0 ? (
+              <div className="space-y-3">
+                {spesePrincipali.slice(0, 5).map((spesa: any) => (
+                  <div key={spesa.categoria} className="flex items-center justify-between p-3 bg-gradient-to-r from-amber-50 to-white rounded-lg border border-amber-100">
+                    <div>
+                      <p className="font-semibold text-gray-900">{spesa.categoria}</p>
+                      <p className="text-xs text-gray-500">{spesa.numero} movimenti</p>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-lg font-bold text-amber-600">
+                        {formatCurrency(spesa.totale)}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="text-gray-500 text-center py-8">Nessuna spesa registrata</p>
+            )}
+          </div>
+        </div>
+
         {/* Grafico Flussi di Cassa */}
         <div className="card">
           <h2 className="text-lg font-semibold text-gray-900 mb-6">
-            Flussi di Cassa - Ultimi 12 Mesi
+            📈 Flussi di Cassa - Ultimi 12 Mesi
           </h2>
           
           <div className="h-80">

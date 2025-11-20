@@ -101,6 +101,8 @@ export const dashboardAPI = {
   getScadenzeScadute: () => api.get('/dashboard/scadenze-scadute'),
   getFlussiCassa: () => api.get('/dashboard/flussi-cassa'),
   getUltimiMovimenti: (limit: number) => api.get(`/dashboard/ultimi-movimenti?limit=${limit}`),
+  getMiglioriClienti: (anno?: number) => api.get('/dashboard/migliori-clienti', { params: { anno } }),
+  getSpesePrincipali: (anno?: number) => api.get('/dashboard/spese-principali', { params: { anno } }),
 };
 
 // Impostazioni API

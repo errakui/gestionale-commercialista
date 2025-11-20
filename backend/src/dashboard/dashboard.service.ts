@@ -151,5 +151,60 @@ export class DashboardService {
       take: limit,
     });
   }
+
+  async getMiglioriClienti(anno?: number) {
+    const currentYear = anno || new Date().getFullYear();
+    
+    const query = `
+      SELECT 
+        c.id,
+        c.ragione_sociale as "ragioneSociale",
+        c.nome,
+        c.cognome,
+        COALESCE(SUM(m.importo), 0) as "totaleEntrate"
+      FROM clienti c
+      LEFT JOIN movimenti_cassa m ON c.id = m.cliente_id 
+        AND m.tipo = 'ENTRATA'
+        AND EXTRACT(YEAR FROM m.data_movimento) = $1
+      WHERE c.attivo = true
+      GROUP BY c.id, c.ragione_sociale, c.nome, c.cognome
+      HAVING SUM(m.importo) > 0
+      ORDER BY "totaleEntrate" DESC
+      LIMIT 5
+    `;
+
+    const results = await this.movimentoRepository.query(query, [currentYear]);
+
+    return results.map(r => ({
+      id: r.id,
+      nome: r.ragioneSociale || `${r.nome || ''} ${r.cognome || ''}`.trim(),
+      totaleEntrate: parseFloat(r.totaleEntrate),
+    }));
+  }
+
+  async getSpesePrincipali(anno?: number) {
+    const currentYear = anno || new Date().getFullYear();
+    
+    const query = `
+      SELECT 
+        COALESCE(categoria, 'Senza Categoria') as categoria,
+        SUM(importo) as totale,
+        COUNT(*) as numero
+      FROM movimenti_cassa
+      WHERE tipo = 'USCITA'
+        AND EXTRACT(YEAR FROM data_movimento) = $1
+      GROUP BY categoria
+      ORDER BY totale DESC
+      LIMIT 10
+    `;
+
+    const results = await this.movimentoRepository.query(query, [currentYear]);
+
+    return results.map(r => ({
+      categoria: r.categoria,
+      totale: parseFloat(r.totale),
+      numero: parseInt(r.numero),
+    }));
+  }
 }
 

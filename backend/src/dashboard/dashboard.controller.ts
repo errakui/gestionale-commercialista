@@ -31,5 +31,15 @@ export class DashboardController {
   async getUltimiMovimenti(@Query('limit', ParseIntPipe) limit?: number) {
     return await this.dashboardService.getUltimiMovimenti(limit || 5);
   }
+
+  @Get('migliori-clienti')
+  async getMiglioriClienti(@Query('anno', ParseIntPipe) anno?: number) {
+    return await this.dashboardService.getMiglioriClienti(anno);
+  }
+
+  @Get('spese-principali')
+  async getSpesePrincipali(@Query('anno', ParseIntPipe) anno?: number) {
+    return await this.dashboardService.getSpesePrincipali(anno);
+  }
 }
 

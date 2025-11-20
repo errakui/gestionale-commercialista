@@ -105,6 +105,8 @@ export const dashboardAPI = {
 
 // Impostazioni API
 export const impostazioniAPI = {
+  getGenerali: () => api.get('/impostazioni/generali'),
+  
   getTemplates: () => api.get('/impostazioni/templates'),
   getTemplate: (id: number) => api.get(`/impostazioni/templates/${id}`),
   createTemplate: (data: any) => api.post('/impostazioni/templates', data),

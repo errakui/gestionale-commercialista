@@ -1,0 +1,82 @@
+╔════════════════════════════════════════════════════════════╗
+║                                                            ║
+║         🔐 GUIDA LOGIN - RISOLUZIONE PROBLEMI             ║
+║                                                            ║
+╚════════════════════════════════════════════════════════════╝
+
+
+🌐 PASSO 1 - APRI IL BROWSER:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Vai su:  http://localhost:3000
+
+
+🔑 PASSO 2 - INSERISCI LE CREDENZIALI:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Campo "Username o Email":    admin
+
+Campo "Password":            Admin123!
+
+⚠️  ATTENZIONE:
+  • La "A" di Admin è MAIUSCOLA
+  • Il "123" sono numeri
+  • Finisce con il punto esclamativo !
+
+
+✅ PASSO 3 - CLICCA "ACCEDI"
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+
+🔧 SE NON FUNZIONA:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Verifica che l'applicazione sia AVVIATA:
+   
+   Apri il terminale e digita:
+   ps aux | grep node | grep -v grep
+   
+   Dovresti vedere processi "node" attivi.
+
+2. Se NON è avviata, avvia con:
+   
+   cd "/Users/errakui/piero gestionale commrcialista"
+   npm run dev
+
+3. Svuota la cache del browser:
+   
+   Chrome/Edge:  Premi CTRL+SHIFT+DELETE (o CMD+SHIFT+DELETE su Mac)
+   Safari:       Menu → Sviluppo → Svuota cache
+
+4. Prova in modalità incognito:
+   
+   Chrome: CTRL+SHIFT+N (CMD+SHIFT+N su Mac)
+
+
+📞 ERRORI COMUNI:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+❌ "Cannot connect to server"
+   → L'applicazione non è avviata
+   → Soluzione: npm run dev
+
+❌ "Credenziali non valide"
+   → Password sbagliata
+   → Soluzione: Usa ESATTAMENTE "Admin123!" (con A maiuscola)
+
+❌ Pagina bianca
+   → Cache del browser
+   → Soluzione: Svuota cache o usa incognito
+
+
+✅ DOPO IL LOGIN:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Vedrai la DASHBOARD con:
+  • KPI (entrate, uscite, saldo)
+  • Scadenze imminenti
+  • Grafico flussi di cassa
+
+
+🚀 ORA SEI DENTRO!
+

@@ -1,0 +1,53 @@
+╔════════════════════════════════════════════════════════╗
+║                                                        ║
+║              🔑 CREDENZIALI DI ACCESSO                ║
+║                                                        ║
+╚════════════════════════════════════════════════════════╝
+
+
+📱 COPIA E INCOLLA QUESTI:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Username:
+admin
+
+Password:
+Admin123!
+
+
+⚠️  IMPORTANTE:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+• La "A" di Admin è MAIUSCOLA
+• Ci sono i numeri 123
+• Finisce con punto esclamativo !
+
+
+✅ SE NON VEDI LA PAGINA DI LOGIN:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Chiudi TUTTE le finestre del browser
+
+2. Riapri questo link:
+   http://localhost:3000/login
+
+3. Dovresti vedere un form bianco con:
+   • Titolo "Gestionale Commercialista"
+   • Campo username
+   • Campo password
+   • Pulsante blu "Accedi"
+
+
+📞 PROBLEMI?
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+❌ Vedi solo schermo bianco?
+   → Premi F5 (o CMD+R su Mac) per ricaricare
+
+❌ Dice "Cannot connect"?
+   → L'applicazione non è avviata
+   → Avvia con: npm run dev
+
+❌ Login non funziona?
+   → Copia-incolla username e password da qui sopra
+   → Verifica che non ci siano spazi prima/dopo

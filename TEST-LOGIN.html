@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>TEST LOGIN</title>
+    <style>
+        body {
+            font-family: monospace;
+            background: #1a1a1a;
+            color: #0f0;
+            padding: 40px;
+        }
+        button {
+            background: #0f0;
+            color: #000;
+            border: none;
+            padding: 20px 40px;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 10px;
+        }
+        #log {
+            background: #000;
+            padding: 20px;
+            margin-top: 20px;
+            white-space: pre-wrap;
+            font-size: 14px;
+        }
+        .error { color: #f00; }
+        .success { color: #0f0; }
+    </style>
+</head>
+<body>
+    <h1>🔥 TEST LOGIN DIRETTO</h1>
+    <button onclick="testLogin()">TEST LOGIN</button>
+    <button onclick="testMe()">TEST /ME</button>
+    <button onclick="clearLog()">CLEAR</button>
+    <div id="log"></div>
+
+    <script>
+        function log(msg, color = '#0f0') {
+            const el = document.getElementById('log');
+            el.innerHTML += `<span style="color:${color}">${msg}</span>\n`;
+        }
+
+        function clearLog() {
+            document.getElementById('log').innerHTML = '';
+        }
+
+        async function testLogin() {
+            clearLog();
+            log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+            log('🔐 TEST LOGIN');
+            log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+            
+            try {
+                log('📤 Invio richiesta a http://localhost:3001/api/auth/login...');
+                
+                const response = await fetch('http://localhost:3001/api/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    credentials: 'include',
+                    body: JSON.stringify({
+                        username: 'admin',
+                        password: 'Admin123!'
+                    })
+                });
+                
+                log(`📥 Status: ${response.status}`, response.ok ? '#0f0' : '#f00');
+                
+                const data = await response.json();
+                log('📦 Risposta:', '#ff0');
+                log(JSON.stringify(data, null, 2), '#ff0');
+                
+                if (data.access_token) {
+                    localStorage.setItem('access_token', data.access_token);
+                    log('✅ Token salvato in localStorage!', '#0f0');
+                    log(`Token: ${data.access_token.substring(0, 50)}...`, '#0f0');
+                } else {
+                    log('❌ NESSUN TOKEN NELLA RISPOSTA!', '#f00');
+                }
+                
+            } catch (error) {
+                log('❌ ERRORE: ' + error.message, '#f00');
+                log(error.stack, '#f00');
+            }
+        }
+
+        async function testMe() {
+            clearLog();
+            log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+            log('👤 TEST /ME');
+            log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+            
+            const token = localStorage.getItem('access_token');
+            if (!token) {
+                log('❌ NESSUN TOKEN IN LOCALSTORAGE!', '#f00');
+                log('Fai prima il TEST LOGIN!', '#f00');
+                return;
+            }
+            
+            log('🔑 Token trovato:', '#0f0');
+            log(token.substring(0, 50) + '...', '#0f0');
+            
+            try {
+                log('📤 Invio richiesta a http://localhost:3001/api/auth/me...');
+                
+                const response = await fetch('http://localhost:3001/api/auth/me', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                    },
+                    credentials: 'include'
+                });
+                
+                log(`📥 Status: ${response.status}`, response.ok ? '#0f0' : '#f00');
+                
+                const data = await response.json();
+                log('📦 Risposta:', '#ff0');
+                log(JSON.stringify(data, null, 2), '#ff0');
+                
+                if (response.ok) {
+                    log('✅ AUTENTICAZIONE OK!', '#0f0');
+                } else {
+                    log('❌ AUTENTICAZIONE FALLITA!', '#f00');
+                }
+                
+            } catch (error) {
+                log('❌ ERRORE: ' + error.message, '#f00');
+                log(error.stack, '#f00');
+            }
+        }
+
+        // Auto-test all'avvio
+        setTimeout(() => {
+            log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+            log('🎯 Clicca TEST LOGIN per iniziare!');
+            log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+        }, 100);
+    </script>
+</body>
+</html>
+

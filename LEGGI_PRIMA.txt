@@ -1,0 +1,81 @@
+╔════════════════════════════════════════════════════════════╗
+║                                                            ║
+║          GESTIONALE COMMERCIALISTA - READY! ✅             ║
+║                                                            ║
+╚════════════════════════════════════════════════════════════╝
+
+
+📋 COSA HO FATTO PER TE:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ Creato tutto il codice backend (NestJS)
+✅ Creato tutto il codice frontend (Next.js)
+✅ Creato file di configurazione (.env)
+✅ Creato script di installazione automatica
+✅ Creato script di avvio rapido
+
+
+🚀 ORA FAI QUESTI 3 PASSI:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1️⃣  Apri il TERMINALE nella cartella del progetto
+
+2️⃣  Esegui questo comando:
+
+    ./setup.sh
+
+   ⚠️  Ti chiederà la password di MySQL
+   💡  Se MySQL non ha password, premi solo INVIO
+
+3️⃣  Quando il setup finisce, avvia con:
+
+    ./START.sh
+
+   Oppure:
+
+    npm run dev
+
+
+🌐 POI:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Apri il browser su:
+
+    http://localhost:3000
+
+
+🔑 ACCEDI CON:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Username: admin
+Password: Admin123!
+
+
+⚠️  SE MYSQL NON È INSTALLATO:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Su Mac, installa con:
+
+    brew install mysql
+    brew services start mysql
+
+
+📚 DOCUMENTAZIONE:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+• README.md         - Documentazione completa
+• QUICK_START.md    - Guida rapida
+• INSTALL.md        - Installazione dettagliata
+• DEPLOY.md         - Deploy su server
+
+
+💬 RIASSUNTO VELOCE:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+    ./setup.sh      <- Prima volta (10 minuti)
+    ./START.sh      <- Ogni volta che vuoi usarlo
+    CTRL+C          <- Per fermarlo
+
+
+✨ È TUTTO PRONTO! Basta eseguire i comandi sopra.
+

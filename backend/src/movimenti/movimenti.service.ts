@@ -173,13 +173,13 @@ export class MovimentiService {
   async getMonthlyTrend(anno: number, clienteId?: number) {
     const query = `
       SELECT 
-        MONTH(data_movimento) as mese,
+        EXTRACT(MONTH FROM data_movimento)::integer as mese,
         SUM(CASE WHEN tipo = 'ENTRATA' THEN importo ELSE 0 END) as entrate,
         SUM(CASE WHEN tipo = 'USCITA' THEN importo ELSE 0 END) as uscite
       FROM movimenti_cassa
-      WHERE YEAR(data_movimento) = ?
-        ${clienteId ? 'AND cliente_id = ?' : ''}
-      GROUP BY MONTH(data_movimento)
+      WHERE EXTRACT(YEAR FROM data_movimento) = $1
+        ${clienteId ? 'AND cliente_id = $2' : ''}
+      GROUP BY EXTRACT(MONTH FROM data_movimento)
       ORDER BY mese
     `;
 

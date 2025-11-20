@@ -20,15 +20,15 @@ export class DashboardService {
 
     const query = `
       SELECT 
-        COALESCE(SUM(CASE WHEN tipo = 'ENTRATA' THEN importo ELSE 0 END), 0) as totaleEntrate,
-        COALESCE(SUM(CASE WHEN tipo = 'USCITA' THEN importo ELSE 0 END), 0) as totaleUscite,
-        COALESCE(SUM(CASE WHEN tipo = 'ENTRATA' THEN COALESCE(importo_iva, 0) ELSE 0 END), 0) as totaleIvaIncassata,
-        COALESCE(SUM(CASE WHEN tipo = 'USCITA' THEN COALESCE(importo_iva, 0) ELSE 0 END), 0) as totaleIvaVersata,
-        COALESCE(SUM(CASE WHEN tipo = 'ENTRATA' THEN COALESCE(importo_ritenuta, 0) ELSE 0 END), 0) as totaleRitenute,
-        COALESCE(SUM(CASE WHEN tipo = 'ENTRATA' THEN COALESCE(imponibile, importo) ELSE 0 END), 0) as totaleImponibileEntrate,
-        COALESCE(SUM(CASE WHEN spesa_interna = 1 THEN importo ELSE 0 END), 0) as totaleSpesaStudio
+        COALESCE(SUM(CASE WHEN tipo = 'ENTRATA' THEN importo ELSE 0 END), 0) as "totaleEntrate",
+        COALESCE(SUM(CASE WHEN tipo = 'USCITA' THEN importo ELSE 0 END), 0) as "totaleUscite",
+        COALESCE(SUM(CASE WHEN tipo = 'ENTRATA' THEN COALESCE(importo_iva, 0) ELSE 0 END), 0) as "totaleIvaIncassata",
+        COALESCE(SUM(CASE WHEN tipo = 'USCITA' THEN COALESCE(importo_iva, 0) ELSE 0 END), 0) as "totaleIvaVersata",
+        COALESCE(SUM(CASE WHEN tipo = 'ENTRATA' THEN COALESCE(importo_ritenuta, 0) ELSE 0 END), 0) as "totaleRitenute",
+        COALESCE(SUM(CASE WHEN tipo = 'ENTRATA' THEN COALESCE(imponibile, importo) ELSE 0 END), 0) as "totaleImponibileEntrate",
+        COALESCE(SUM(CASE WHEN spesa_interna = true THEN importo ELSE 0 END), 0) as "totaleSpesaStudio"
       FROM movimenti_cassa
-      WHERE data_movimento BETWEEN ? AND ?
+      WHERE data_movimento BETWEEN $1 AND $2
     `;
 
     const result = await this.movimentoRepository.query(query, [
@@ -122,13 +122,13 @@ export class DashboardService {
 
     const query = `
       SELECT 
-        YEAR(data_movimento) as anno,
-        MONTH(data_movimento) as mese,
+        EXTRACT(YEAR FROM data_movimento)::integer as anno,
+        EXTRACT(MONTH FROM data_movimento)::integer as mese,
         SUM(CASE WHEN tipo = 'ENTRATA' THEN importo ELSE 0 END) as entrate,
         SUM(CASE WHEN tipo = 'USCITA' THEN importo ELSE 0 END) as uscite
       FROM movimenti_cassa
-      WHERE data_movimento >= ?
-      GROUP BY YEAR(data_movimento), MONTH(data_movimento)
+      WHERE data_movimento >= $1
+      GROUP BY EXTRACT(YEAR FROM data_movimento), EXTRACT(MONTH FROM data_movimento)
       ORDER BY anno, mese
     `;
 

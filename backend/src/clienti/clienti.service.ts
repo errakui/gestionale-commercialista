@@ -94,11 +94,11 @@ export class ClientiService {
     
     const query = `
       SELECT 
-        COALESCE(SUM(CASE WHEN tipo = 'ENTRATA' THEN importo ELSE 0 END), 0) as totaleEntrate,
-        COALESCE(SUM(CASE WHEN tipo = 'USCITA' THEN importo ELSE 0 END), 0) as totaleUscite
+        COALESCE(SUM(CASE WHEN tipo = 'ENTRATA' THEN importo ELSE 0 END), 0) as "totaleEntrate",
+        COALESCE(SUM(CASE WHEN tipo = 'USCITA' THEN importo ELSE 0 END), 0) as "totaleUscite"
       FROM movimenti_cassa
-      WHERE cliente_id = ? 
-        AND YEAR(data_movimento) = ?
+      WHERE cliente_id = $1
+        AND EXTRACT(YEAR FROM data_movimento) = $2
     `;
 
     const movimentiStats = await this.clienteRepository.query(query, [clienteId, currentYear]);
@@ -106,9 +106,9 @@ export class ClientiService {
     const scadenzeQuery = `
       SELECT COUNT(*) as count
       FROM scadenze
-      WHERE cliente_id = ?
+      WHERE cliente_id = $1
         AND stato = 'DA_FARE'
-        AND data_scadenza BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 30 DAY)
+        AND data_scadenza BETWEEN CURRENT_DATE AND CURRENT_DATE + INTERVAL '30 days'
     `;
 
     const scadenzeStats = await this.clienteRepository.query(scadenzeQuery, [clienteId]);

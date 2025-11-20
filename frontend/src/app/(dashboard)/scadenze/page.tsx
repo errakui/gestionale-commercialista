@@ -23,7 +23,7 @@ export default function ScadenzePage() {
   });
 
   const completaMutation = useMutation({
-    mutationFn: (id: number) => scadenzeAPI.completa(id),
+    mutationFn: (id: number) => scadenzeAPI.complete(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['scadenze'] });
     },

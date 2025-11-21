@@ -3,7 +3,7 @@ import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { DashboardService } from './dashboard.service';
 
 @Controller('api/dashboard')
-// @UseGuards(JwtAuthGuard) // TEMP DISABLED
+@UseGuards(JwtAuthGuard) // ✅ RIATTIVATO
 export class DashboardController {
   constructor(private readonly dashboardService: DashboardService) {}
 

@@ -4,7 +4,7 @@ import { ScadenzeService } from './scadenze.service';
 import { CreateScadenzaDto, UpdateScadenzaDto, FilterScadenzaDto } from './dto/scadenza.dto';
 
 @Controller('api/scadenze')
-// @UseGuards(JwtAuthGuard) // TEMP DISABLED
+@UseGuards(JwtAuthGuard) // ✅ RIATTIVATO
 export class ScadenzeController {
   constructor(private readonly scadenzeService: ScadenzeService) {}
 

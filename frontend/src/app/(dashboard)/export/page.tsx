@@ -2,9 +2,62 @@
 
 import Header from '@/components/Layout/Header';
 import { Download, FileSpreadsheet, Users, Calendar, Wallet } from 'lucide-react';
+import { useState } from 'react';
 
 export default function ExportPage() {
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
+  const [isDownloading, setIsDownloading] = useState<string | null>(null);
+
+  const handleExport = async (tipo: string, format: string) => {
+    setIsDownloading(`${tipo}-${format}`);
+    try {
+      const token = localStorage.getItem('access_token');
+      if (!token) {
+        alert('⚠️ Devi effettuare il login per esportare i dati!');
+        return;
+      }
+
+      const response = await fetch(`${API_URL}/export/${tipo}?format=${format}`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Errore ${response.status}: ${response.statusText}`);
+      }
+
+      // Ottieni il nome del file dall'header o usa un default
+      const contentDisposition = response.headers.get('Content-Disposition');
+      let filename = `${tipo}_${format}_${new Date().toISOString().split('T')[0]}.${format === 'excel' ? 'xlsx' : format}`;
+      
+      if (contentDisposition) {
+        const filenameMatch = contentDisposition.match(/filename="(.+)"/);
+        if (filenameMatch) {
+          filename = filenameMatch[1];
+        }
+      }
+
+      // Scarica il file
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+
+      console.log(`✅ Export ${tipo} (${format}) completato!`);
+    } catch (error: any) {
+      console.error('❌ Errore export:', error);
+      alert(`❌ Errore durante l'export: ${error.message}`);
+    } finally {
+      setIsDownloading(null);
+    }
+  };
 
   return (
     <>
@@ -26,20 +79,40 @@ export default function ExportPage() {
             </p>
 
             <div className="space-y-2">
-              <a
-                href={`${API_URL}/export/clienti?format=csv`}
-                className="btn btn-secondary w-full flex items-center justify-center gap-2"
+              <button
+                onClick={() => handleExport('clienti', 'csv')}
+                disabled={isDownloading === 'clienti-csv'}
+                className="btn btn-secondary w-full flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <Download size={18} />
-                Esporta CSV
-              </a>
-              <a
-                href={`${API_URL}/export/clienti?format=excel`}
-                className="btn btn-primary w-full flex items-center justify-center gap-2"
+                {isDownloading === 'clienti-csv' ? (
+                  <>
+                    <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent" />
+                    Scaricamento...
+                  </>
+                ) : (
+                  <>
+                    <Download size={18} />
+                    Esporta CSV
+                  </>
+                )}
+              </button>
+              <button
+                onClick={() => handleExport('clienti', 'excel')}
+                disabled={isDownloading === 'clienti-excel'}
+                className="btn btn-primary w-full flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <FileSpreadsheet size={18} />
-                Esporta Excel
-              </a>
+                {isDownloading === 'clienti-excel' ? (
+                  <>
+                    <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent" />
+                    Scaricamento...
+                  </>
+                ) : (
+                  <>
+                    <FileSpreadsheet size={18} />
+                    Esporta Excel
+                  </>
+                )}
+              </button>
             </div>
           </div>
 
@@ -57,20 +130,40 @@ export default function ExportPage() {
             </p>
 
             <div className="space-y-2">
-              <a
-                href={`${API_URL}/export/movimenti?format=csv`}
-                className="btn btn-secondary w-full flex items-center justify-center gap-2"
+              <button
+                onClick={() => handleExport('movimenti', 'csv')}
+                disabled={isDownloading === 'movimenti-csv'}
+                className="btn btn-secondary w-full flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <Download size={18} />
-                Esporta CSV
-              </a>
-              <a
-                href={`${API_URL}/export/movimenti?format=excel`}
-                className="btn btn-primary w-full flex items-center justify-center gap-2"
+                {isDownloading === 'movimenti-csv' ? (
+                  <>
+                    <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent" />
+                    Scaricamento...
+                  </>
+                ) : (
+                  <>
+                    <Download size={18} />
+                    Esporta CSV
+                  </>
+                )}
+              </button>
+              <button
+                onClick={() => handleExport('movimenti', 'excel')}
+                disabled={isDownloading === 'movimenti-excel'}
+                className="btn btn-primary w-full flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <FileSpreadsheet size={18} />
-                Esporta Excel
-              </a>
+                {isDownloading === 'movimenti-excel' ? (
+                  <>
+                    <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent" />
+                    Scaricamento...
+                  </>
+                ) : (
+                  <>
+                    <FileSpreadsheet size={18} />
+                    Esporta Excel
+                  </>
+                )}
+              </button>
             </div>
           </div>
 
@@ -88,20 +181,40 @@ export default function ExportPage() {
             </p>
 
             <div className="space-y-2">
-              <a
-                href={`${API_URL}/export/scadenze?format=csv`}
-                className="btn btn-secondary w-full flex items-center justify-center gap-2"
+              <button
+                onClick={() => handleExport('scadenze', 'csv')}
+                disabled={isDownloading === 'scadenze-csv'}
+                className="btn btn-secondary w-full flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <Download size={18} />
-                Esporta CSV
-              </a>
-              <a
-                href={`${API_URL}/export/scadenze?format=excel`}
-                className="btn btn-primary w-full flex items-center justify-center gap-2"
+                {isDownloading === 'scadenze-csv' ? (
+                  <>
+                    <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent" />
+                    Scaricamento...
+                  </>
+                ) : (
+                  <>
+                    <Download size={18} />
+                    Esporta CSV
+                  </>
+                )}
+              </button>
+              <button
+                onClick={() => handleExport('scadenze', 'excel')}
+                disabled={isDownloading === 'scadenze-excel'}
+                className="btn btn-primary w-full flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <FileSpreadsheet size={18} />
-                Esporta Excel
-              </a>
+                {isDownloading === 'scadenze-excel' ? (
+                  <>
+                    <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent" />
+                    Scaricamento...
+                  </>
+                ) : (
+                  <>
+                    <FileSpreadsheet size={18} />
+                    Esporta Excel
+                  </>
+                )}
+              </button>
             </div>
           </div>
         </div>

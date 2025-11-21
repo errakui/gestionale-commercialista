@@ -4,29 +4,47 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api';
 
 export const api = axios.create({
   baseURL: API_URL,
-  withCredentials: true,
+  withCredentials: false, // ✅ NON SERVE PIÙ - SOLO BEARER TOKEN
   headers: {
     'Content-Type': 'application/json',
   },
 });
 
 // Aggiungi token automaticamente
-api.interceptors.request.use((config) => {
-  const token = localStorage.getItem('access_token');
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-  return config;
-});
-
-// Gestisci 401 - DISABILITATO REDIRECT
-api.interceptors.response.use(
-  (response) => response,
+api.interceptors.request.use(
+  (config) => {
+    if (typeof window !== 'undefined') {
+      const token = localStorage.getItem('access_token');
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+        console.log('🔑 Token aggiunto alla richiesta:', config.url);
+      } else {
+        console.warn('⚠️ Token mancante per richiesta:', config.url);
+      }
+    }
+    return config;
+  },
   (error) => {
+    console.error('❌ Errore request interceptor:', error);
+    return Promise.reject(error);
+  }
+);
+
+// Gestisci 401 con redirect al login
+api.interceptors.response.use(
+  (response) => {
+    console.log('✅ Risposta OK:', response.config.url);
+    return response;
+  },
+  (error) => {
+    console.error('❌ Errore risposta:', error.config?.url, error.response?.status);
+    
     if (error.response?.status === 401) {
+      console.warn('🔒 401 Unauthorized - Redirect al login');
       localStorage.removeItem('access_token');
-      // DISABILITATO: Non fare redirect automatico
-      // Lascia che l'utente veda gli errori
+      if (typeof window !== 'undefined' && !window.location.pathname.includes('/login')) {
+        window.location.href = '/login';
+      }
     }
     return Promise.reject(error);
   }
@@ -108,13 +126,14 @@ export const dashboardAPI = {
 // Impostazioni API
 export const impostazioniAPI = {
   getGenerali: () => api.get('/impostazioni/generali'),
+  updateGenerali: (data: any) => api.put('/impostazioni/generali', data),
   
-  getTemplates: () => api.get('/impostazioni/templates'),
-  getTemplate: (id: number) => api.get(`/impostazioni/templates/${id}`),
-  createTemplate: (data: any) => api.post('/impostazioni/templates', data),
+  getTemplates: () => api.get('/impostazioni/template-scadenze'),
+  getTemplate: (id: number) => api.get(`/impostazioni/template-scadenze/${id}`),
+  createTemplate: (data: any) => api.post('/impostazioni/template-scadenze', data),
   updateTemplate: (id: number, data: any) =>
-    api.put(`/impostazioni/templates/${id}`, data),
-  deleteTemplate: (id: number) => api.delete(`/impostazioni/templates/${id}`),
+    api.put(`/impostazioni/template-scadenze/${id}`, data),
+  deleteTemplate: (id: number) => api.delete(`/impostazioni/template-scadenze/${id}`),
 
   getCategorie: () => api.get('/impostazioni/categorie'),
   getCategoria: (id: number) => api.get(`/impostazioni/categorie/${id}`),
@@ -148,4 +167,15 @@ export const exportAPI = {
       params: filters,
       responseType: 'blob',
     }),
+  exportMandato: (data: any) =>
+    api.post('/export/mandato', data, { responseType: 'blob' }),
+};
+
+// Mandati API
+export const mandatiAPI = {
+  getAll: () => api.get('/mandati'),
+  getOne: (id: number) => api.get(`/mandati/${id}`),
+  create: (data: any) => api.post('/mandati', data),
+  update: (id: number, data: any) => api.put(`/mandati/${id}`, data),
+  delete: (id: number) => api.delete(`/mandati/${id}`),
 };

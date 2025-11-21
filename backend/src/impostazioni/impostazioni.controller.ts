@@ -5,7 +5,7 @@ import { CreateTemplateDto, UpdateTemplateDto } from './dto/template.dto';
 import { CreateCategoriaDto, UpdateCategoriaDto } from './dto/categoria.dto';
 
 @Controller('api/impostazioni')
-// @UseGuards(JwtAuthGuard) // TEMP DISABLED
+@UseGuards(JwtAuthGuard) // ✅ RIATTIVATO
 export class ImpostazioniController {
   constructor(private readonly impostazioniService: ImpostazioniService) {}
 
@@ -13,6 +13,11 @@ export class ImpostazioniController {
   @Get('generali')
   async getGeneralSettings() {
     return await this.impostazioniService.getGeneralSettings();
+  }
+
+  @Put('generali')
+  async updateGeneralSettings(@Body() data: any) {
+    return await this.impostazioniService.updateGeneralSettings(data);
   }
 
   // Template Scadenze

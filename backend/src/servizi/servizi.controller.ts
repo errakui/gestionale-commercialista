@@ -4,7 +4,7 @@ import { CreateServizioDto, UpdateServizioDto, GeneraMovimentoDaServizioDto } fr
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 
 @Controller('api/servizi')
-// @UseGuards(JwtAuthGuard) // TEMP DISABLED
+@UseGuards(JwtAuthGuard) // ✅ RIATTIVATO
 export class ServiziController {
   constructor(private readonly serviziService: ServiziService) {}
 

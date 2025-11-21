@@ -1,5 +1,7 @@
 'use client';
 
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import Sidebar from '@/components/Layout/Sidebar';
 
 export default function DashboardLayout({
@@ -7,13 +9,19 @@ export default function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
-  // DISABILITATO TEMPORANEAMENTE - così puoi usare l'app
-  // La verifica auth verrà fatta dalle API stesse
-  
+  const router = useRouter();
+
+  useEffect(() => {
+    const token = localStorage.getItem('access_token');
+    if (!token) {
+      router.push('/login');
+    }
+  }, [router]);
+
   return (
-    <div className="flex min-h-screen">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-gray-100">
       <Sidebar />
-      <main className="flex-1 bg-[#F5F7FB]">
+      <main className="ml-72">
         {children}
       </main>
     </div>

@@ -1,18 +1,30 @@
+'use client';
+
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+
 export default function Home() {
-  // Redirect disabilitato - vai manualmente su /dashboard
+  const router = useRouter();
+
+  useEffect(() => {
+    // Controlla se c'è un token
+    const token = localStorage.getItem('access_token');
+    
+    if (token) {
+      // Se c'è il token, vai alla dashboard
+      router.push('/dashboard');
+    } else {
+      // Altrimenti vai al login
+      router.push('/login');
+    }
+  }, [router]);
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-blue-100">
       <div className="text-center">
-        <h1 className="text-4xl font-bold text-gray-900 mb-4">Gestionale Commercialista</h1>
-        <p className="text-gray-600 mb-8">Benvenuto nel gestionale</p>
-        <a 
-          href="/dashboard" 
-          className="inline-block px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
-        >
-          Vai alla Dashboard
-        </a>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+        <p className="text-gray-600">Caricamento...</p>
       </div>
     </div>
   );
 }
-

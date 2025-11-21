@@ -86,14 +86,18 @@ export class AuthService {
   }
 
   async validateToken(userId: number): Promise<Utente> {
+    console.log('🔍 [AUTH] validateToken chiamato per userId:', userId);
+    
     const user = await this.utenteRepository.findOne({
       where: { id: userId, attivo: true },
     });
 
     if (!user) {
+      console.error('❌ [AUTH] Utente non trovato o non attivo per userId:', userId);
       throw new UnauthorizedException('Utente non valido');
     }
 
+    console.log('✅ [AUTH] Utente trovato:', user.username);
     return user;
   }
 }

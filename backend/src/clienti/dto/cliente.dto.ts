@@ -1,4 +1,5 @@
 import { IsString, IsEmail, IsOptional, IsEnum, IsBoolean, MaxLength, IsNumber, Min, Max } from 'class-validator';
+import { Transform } from 'class-transformer';
 import { TipoCliente, PeriodicitaIva } from '../../entities/cliente.entity';
 
 export class CreateClienteDto {
@@ -231,6 +232,11 @@ export class FilterClienteDto {
   search?: string;
 
   @IsOptional()
+  @Transform(({ value }) => {
+    if (value === 'true') return true;
+    if (value === 'false') return false;
+    return value;
+  })
   @IsBoolean()
   attivo?: boolean;
 

@@ -17,16 +17,25 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
         },
       ]),
       ignoreExpiration: false,
-      secretOrKey: process.env.JWT_SECRET || 'default-secret-change-this',
+      secretOrKey: 'chiave_segreta_test_locale_123456789', // ✅ SECRET CORRETTA HARDCODATA
     });
   }
 
   async validate(payload: any) {
-    const user = await this.authService.validateToken(payload.sub);
-    if (!user) {
-      throw new UnauthorizedException();
+    console.log('🔍 [JWT] Validating token payload:', { sub: payload.sub, username: payload.username });
+    
+    try {
+      const user = await this.authService.validateToken(payload.sub);
+      if (!user) {
+        console.error('❌ [JWT] User not found for payload.sub:', payload.sub);
+        throw new UnauthorizedException('User not found');
+      }
+      console.log('✅ [JWT] Token validated for user:', user.username);
+      return { id: payload.sub, username: payload.username, email: payload.email };
+    } catch (error) {
+      console.error('❌ [JWT] Validation error:', error.message);
+      throw new UnauthorizedException(error.message);
     }
-    return { id: payload.sub, username: payload.username, email: payload.email };
   }
 }
 

@@ -4,18 +4,24 @@ import { MovimentiService } from './movimenti.service';
 import { CreateMovimentoDto, UpdateMovimentoDto, FilterMovimentoDto } from './dto/movimento.dto';
 
 @Controller('api/movimenti')
-// @UseGuards(JwtAuthGuard) // TEMP DISABLED
+@UseGuards(JwtAuthGuard) // ✅ RIATTIVATO
 export class MovimentiController {
   constructor(private readonly movimentiService: MovimentiService) {}
 
   @Get()
   async findAll(@Query() filters: FilterMovimentoDto) {
-    return await this.movimentiService.findAll(filters);
+    console.log('💰 [MOVIMENTI] GET /movimenti chiamato con filtri:', filters);
+    const result = await this.movimentiService.findAll(filters);
+    console.log(`✅ [MOVIMENTI] Trovati ${result.length} movimenti`);
+    return result;
   }
 
   @Get('summary')
   async getSummary(@Query() filters: FilterMovimentoDto) {
-    return await this.movimentiService.getSummary(filters);
+    console.log('📊 [MOVIMENTI] GET /movimenti/summary chiamato con filtri:', filters);
+    const result = await this.movimentiService.getSummary(filters);
+    console.log('✅ [MOVIMENTI] Summary calcolato:', result);
+    return result;
   }
 
   @Get('trend')
@@ -33,7 +39,10 @@ export class MovimentiController {
 
   @Post()
   async create(@Body() createMovimentoDto: CreateMovimentoDto) {
-    return await this.movimentiService.create(createMovimentoDto);
+    console.log('➕ [MOVIMENTI] POST /movimenti - Creazione movimento:', createMovimentoDto);
+    const result = await this.movimentiService.create(createMovimentoDto);
+    console.log('✅ [MOVIMENTI] Movimento creato con ID:', result.id);
+    return result;
   }
 
   @Put(':id')

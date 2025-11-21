@@ -13,8 +13,8 @@ import { LocalStrategy } from './strategies/local.strategy';
     TypeOrmModule.forFeature([Utente]),
     PassportModule,
     JwtModule.register({
-      secret: process.env.JWT_SECRET || 'default-secret-change-this',
-      signOptions: { expiresIn: process.env.JWT_EXPIRES_IN || '8h' },
+      secret: 'chiave_segreta_test_locale_123456789', // ✅ SECRET CORRETTA HARDCODATA
+      signOptions: { expiresIn: '8h' },
     }),
   ],
   controllers: [AuthController],

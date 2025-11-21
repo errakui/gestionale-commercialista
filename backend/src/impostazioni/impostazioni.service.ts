@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { TemplateScadenza } from '../entities/template-scadenza.entity';
 import { CategoriaMovimento } from '../entities/categoria-movimento.entity';
+import { ImpostazioniGenerali } from '../entities/impostazioni-generali.entity';
 import { CreateTemplateDto, UpdateTemplateDto } from './dto/template.dto';
 import { CreateCategoriaDto, UpdateCategoriaDto } from './dto/categoria.dto';
 
@@ -13,6 +14,8 @@ export class ImpostazioniService {
     private templateRepository: Repository<TemplateScadenza>,
     @InjectRepository(CategoriaMovimento)
     private categoriaRepository: Repository<CategoriaMovimento>,
+    @InjectRepository(ImpostazioniGenerali)
+    private impostazioniRepository: Repository<ImpostazioniGenerali>,
   ) {}
 
   // Template Scadenze
@@ -80,15 +83,41 @@ export class ImpostazioniService {
     return await this.categoriaRepository.save(categoria);
   }
 
-  // Impostazioni generali (per ora solo lettura)
+  // Impostazioni generali
   async getGeneralSettings() {
-    return {
-      nomeStudio: 'Studio Commercialista',
-      timezone: 'Europe/Rome',
-      formatoData: 'DD/MM/YYYY',
-      valuta: 'EUR',
-      giorniScadenzeImminenti: 7,
-    };
+    // Prendi sempre il primo record (ce ne dovrebbe essere solo uno)
+    let settings = await this.impostazioniRepository.findOne({ where: { id: 1 } });
+    
+    // Se non esiste, crealo con valori di default
+    if (!settings) {
+      settings = this.impostazioniRepository.create({
+        nomeStudio: 'Studio Commercialista',
+        timezone: 'Europe/Rome',
+        formatoData: 'DD/MM/YYYY',
+        valuta: 'EUR',
+        giorniScadenzeImminenti: 7,
+        emailNotifiche: null,
+        notificheEmail: true,
+        generaScadenzeAutomatiche: true,
+      });
+      settings = await this.impostazioniRepository.save(settings);
+    }
+    
+    return settings;
+  }
+
+  async updateGeneralSettings(data: Partial<ImpostazioniGenerali>) {
+    let settings = await this.impostazioniRepository.findOne({ where: { id: 1 } });
+    
+    if (!settings) {
+      // Crea se non esiste
+      settings = this.impostazioniRepository.create(data);
+    } else {
+      // Aggiorna
+      Object.assign(settings, data);
+    }
+    
+    return await this.impostazioniRepository.save(settings);
   }
 }
 

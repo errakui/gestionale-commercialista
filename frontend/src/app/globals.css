@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Manrope:wght@400;500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,66 +6,237 @@
 
 @layer base {
   :root {
-    --background: #F8FAFC;
-    --foreground: #0F172A;
+    --background: #FAFBFC;
+    --foreground: #0A1628;
+    --primary: #2563EB;
+    --primary-dark: #1E40AF;
   }
 
   * {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-family: 'Inter', 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   body {
-    @apply bg-[#F8FAFC] text-slate-900 antialiased;
+    @apply bg-[#FAFBFC] text-slate-900 antialiased;
+    letter-spacing: -0.01em;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Manrope', 'Inter', sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.02em;
   }
 }
 
 @layer components {
+  /* BUTTONS - Design Moderno */
   .btn {
-    @apply px-4 py-2 rounded-xl font-semibold transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 shadow-sm hover:shadow-md;
+    @apply px-5 py-2.5 rounded-xl font-semibold text-sm transition-all duration-200 
+           focus:outline-none focus:ring-2 focus:ring-offset-2 shadow-sm hover:shadow-lg 
+           active:scale-[0.98] inline-flex items-center justify-center gap-2;
   }
 
   .btn-primary {
-    @apply bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:from-blue-700 hover:to-blue-800 focus:ring-blue-500;
+    @apply bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-700 text-white 
+           hover:from-blue-700 hover:via-blue-800 hover:to-indigo-800 
+           focus:ring-blue-500 shadow-blue-500/20;
   }
 
   .btn-secondary {
-    @apply bg-white border-2 border-gray-300 text-gray-700 hover:bg-gray-50 hover:border-gray-400 focus:ring-gray-500;
+    @apply bg-white border-2 border-gray-200 text-gray-700 
+           hover:bg-gray-50 hover:border-gray-300 hover:shadow-md
+           focus:ring-gray-400;
   }
 
   .btn-danger {
-    @apply bg-gradient-to-r from-red-600 to-red-700 text-white hover:from-red-700 hover:to-red-800 focus:ring-red-500;
+    @apply bg-gradient-to-r from-red-600 to-rose-700 text-white 
+           hover:from-red-700 hover:to-rose-800 
+           focus:ring-red-500 shadow-red-500/20;
   }
 
+  .btn-success {
+    @apply bg-gradient-to-r from-green-600 to-emerald-700 text-white 
+           hover:from-green-700 hover:to-emerald-800 
+           focus:ring-green-500 shadow-green-500/20;
+  }
+
+  /* CARDS - Design Elegante */
   .card {
-    @apply bg-white rounded-2xl shadow-sm border border-gray-100 p-6 hover:shadow-md transition-shadow duration-200;
+    @apply bg-white rounded-2xl shadow-sm border border-gray-100 p-6 
+           hover:shadow-xl hover:border-gray-200 
+           transition-all duration-300;
+    background: linear-gradient(to bottom, #ffffff, #fefefe);
   }
 
+  /* INPUT FIELDS - Design Premium */
   .input {
-    @apply w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent;
+    @apply w-full px-4 py-2.5 border-2 border-gray-200 rounded-xl 
+           focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 
+           transition-all duration-200 hover:border-gray-300
+           text-sm font-medium;
   }
 
+  /* LABELS */
   .label {
-    @apply block text-sm font-medium text-gray-700 mb-1;
+    @apply block text-sm font-semibold text-gray-700 mb-2 tracking-tight;
   }
 
+  /* BADGES - Moderni e Colorati */
   .badge {
-    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+    @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-bold
+           shadow-sm border;
   }
 
   .badge-success {
-    @apply bg-green-100 text-green-800;
+    @apply bg-gradient-to-r from-green-50 to-emerald-50 text-green-700 
+           border-green-200 shadow-green-100;
   }
 
   .badge-warning {
-    @apply bg-yellow-100 text-yellow-800;
+    @apply bg-gradient-to-r from-yellow-50 to-amber-50 text-amber-700 
+           border-amber-200 shadow-amber-100;
   }
 
   .badge-danger {
-    @apply bg-red-100 text-red-800;
+    @apply bg-gradient-to-r from-red-50 to-rose-50 text-red-700 
+           border-red-200 shadow-red-100;
   }
 
   .badge-info {
-    @apply bg-blue-100 text-blue-800;
+    @apply bg-gradient-to-r from-blue-50 to-cyan-50 text-blue-700 
+           border-blue-200 shadow-blue-100;
+  }
+
+  /* TABLES - Design Pulito */
+  table {
+    @apply w-full text-sm;
+  }
+
+  thead {
+    @apply border-b-2 border-gray-200;
+    background: linear-gradient(to bottom, #F9FAFB, #F3F4F6);
+  }
+
+  thead th {
+    @apply py-4 px-4 text-xs font-bold text-gray-600 uppercase tracking-wider;
+    letter-spacing: 0.05em;
+  }
+
+  tbody tr {
+    @apply border-b border-gray-100 hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 
+           transition-all duration-150;
+  }
+
+  tbody td {
+    @apply py-3.5 px-4 text-sm;
+  }
+
+  /* MODAL OVERLAY */
+  .modal-overlay {
+    @apply fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4;
+    animation: fadeIn 0.2s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  /* SCROLLBAR Custom */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-gray-100 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gray-400 rounded-full hover:bg-gray-500;
+  }
+
+  /* GRADIENT BACKGROUNDS */
+  .gradient-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  }
+
+  .gradient-success {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  }
+
+  .gradient-danger {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  }
+
+  .gradient-warning {
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  }
+
+  /* ANIMATIONS */
+  @keyframes slideUp {
+    from {
+      transform: translateY(20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.3s ease-out;
+  }
+
+  /* SHADOW UTILITIES */
+  .shadow-glow-blue {
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+  }
+
+  .shadow-glow-green {
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+  }
+
+  .shadow-glow-red {
+    box-shadow: 0 0 20px rgba(239, 68, 68, 0.3);
+  }
+
+  /* LOADING SPINNER */
+  .spinner {
+    @apply animate-spin rounded-full border-b-2 border-current;
   }
 }
 
+/* SELECT STYLING */
+select {
+  @apply appearance-none bg-white;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right 0.5rem center;
+  background-repeat: no-repeat;
+  background-size: 1.5em 1.5em;
+  padding-right: 2.5rem;
+}
+
+/* FOCUS STYLES - Accessibilità */
+*:focus-visible {
+  @apply outline-none ring-2 ring-blue-500 ring-offset-2;
+}
+
+/* TEXT SELECTION */
+::selection {
+  @apply bg-blue-200 text-blue-900;
+}
+
+/* SMOOTH TRANSITIONS */
+* {
+  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}

@@ -4,7 +4,7 @@ import { NoteService } from './note.service';
 import { CreateNotaDto, UpdateNotaDto } from './dto/nota.dto';
 
 @Controller('api')
-// @UseGuards(JwtAuthGuard) // TEMP DISABLED
+@UseGuards(JwtAuthGuard) // ✅ RIATTIVATO
 export class NoteController {
   constructor(private readonly noteService: NoteService) {}
 

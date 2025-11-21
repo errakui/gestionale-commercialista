@@ -4,13 +4,21 @@ import { ClientiService } from './clienti.service';
 import { CreateClienteDto, UpdateClienteDto, FilterClienteDto } from './dto/cliente.dto';
 
 @Controller('api/clienti')
-// @UseGuards(JwtAuthGuard) // DISABILITATO TEMPORANEAMENTE
+@UseGuards(JwtAuthGuard) // ✅ RIATTIVATO
 export class ClientiController {
   constructor(private readonly clientiService: ClientiService) {}
 
   @Get()
   async findAll(@Query() filters: FilterClienteDto) {
-    return await this.clientiService.findAll(filters);
+    console.log('📋 [CLIENTI] GET /clienti chiamato con filtri:', filters);
+    try {
+      const result = await this.clientiService.findAll(filters);
+      console.log('✅ [CLIENTI] Trovati', result?.length || 0, 'clienti');
+      return result;
+    } catch (error) {
+      console.error('❌ [CLIENTI] Errore:', error);
+      throw error;
+    }
   }
 
   @Get(':id')

@@ -1,4 +1,5 @@
 import { IsString, IsDateString, IsEnum, IsOptional, IsInt, IsNumber, Min, Max, MaxLength, IsBoolean } from 'class-validator';
+import { Type } from 'class-transformer';
 import { TipoMovimento } from '../../entities/movimento-cassa.entity';
 
 export class CreateMovimentoDto {
@@ -146,6 +147,7 @@ export class UpdateMovimentoDto {
 export class FilterMovimentoDto {
   @IsOptional()
   @IsInt()
+  @Type(() => Number)
   clienteId?: number;
 
   @IsOptional()
@@ -172,12 +174,14 @@ export class FilterMovimentoDto {
   @IsInt()
   @Min(1)
   @Max(12)
+  @Type(() => Number)
   mese?: number;
 
   @IsOptional()
   @IsInt()
   @Min(2000)
   @Max(2100)
+  @Type(() => Number)
   anno?: number;
 }
 

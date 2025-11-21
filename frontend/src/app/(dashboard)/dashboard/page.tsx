@@ -16,6 +16,9 @@ export default function DashboardPage() {
       const response = await dashboardAPI.getKPI();
       return response.data;
     },
+    staleTime: 2 * 60 * 1000, // 2 minuti
+    cacheTime: 5 * 60 * 1000,
+    refetchOnWindowFocus: false,
   });
 
   const { data: scadenzeImminenti } = useQuery({
@@ -24,6 +27,9 @@ export default function DashboardPage() {
       const response = await dashboardAPI.getScadenzeImminenti(7);
       return response.data;
     },
+    staleTime: 5 * 60 * 1000,
+    cacheTime: 10 * 60 * 1000,
+    refetchOnWindowFocus: false,
   });
 
   const { data: scadenzeScadute } = useQuery({
@@ -32,6 +38,9 @@ export default function DashboardPage() {
       const response = await dashboardAPI.getScadenzeScadute();
       return response.data;
     },
+    staleTime: 5 * 60 * 1000,
+    cacheTime: 10 * 60 * 1000,
+    refetchOnWindowFocus: false,
   });
 
   const { data: flussiCassa } = useQuery({
@@ -40,6 +49,9 @@ export default function DashboardPage() {
       const response = await dashboardAPI.getFlussiCassa();
       return response.data;
     },
+    staleTime: 5 * 60 * 1000,
+    cacheTime: 10 * 60 * 1000,
+    refetchOnWindowFocus: false,
   });
 
   const { data: miglioriClienti } = useQuery({
@@ -48,6 +60,9 @@ export default function DashboardPage() {
       const response = await dashboardAPI.getMiglioriClienti();
       return response.data;
     },
+    staleTime: 5 * 60 * 1000,
+    cacheTime: 10 * 60 * 1000,
+    refetchOnWindowFocus: false,
   });
 
   const { data: spesePrincipali } = useQuery({
@@ -56,6 +71,9 @@ export default function DashboardPage() {
       const response = await dashboardAPI.getSpesePrincipali();
       return response.data;
     },
+    staleTime: 5 * 60 * 1000,
+    cacheTime: 10 * 60 * 1000,
+    refetchOnWindowFocus: false,
   });
 
   const formatCurrency = (value: number) => {

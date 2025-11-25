@@ -1,0 +1,68 @@
+================================================================================
+🚂 VARIABILI RAILWAY - COPIA E INCOLLA
+================================================================================
+
+⚠️ IMPORTANTE: Sostituisci gli URL con quelli REALI del tuo progetto Railway!
+
+================================================================================
+📦 BACKEND - Variabili da copiare
+================================================================================
+
+1. Vai su Railway → Servizio "backend" → Tab "Variables"
+2. Clicca "Raw Editor" (in alto a destra)
+3. Copia e incolla TUTTO questo blocco:
+
+DB_HOST=${PGHOST}
+DB_PORT=${PGPORT}
+DB_USERNAME=${PGUSER}
+DB_PASSWORD=${PGPASSWORD}
+DB_DATABASE=${PGDATABASE}
+JWT_SECRET=chiave_segreta_super_lunga_minimo_32_caratteri_123456789
+FRONTEND_URL=https://frontend-production-f5f8.up.railway.app
+NODE_ENV=production
+
+================================================================================
+📦 FRONTEND - Variabili da copiare
+================================================================================
+
+1. Vai su Railway → Servizio "frontend" → Tab "Variables"
+2. Clicca "Raw Editor" (in alto a destra)
+3. Copia e incolla TUTTO questo blocco:
+
+NEXT_PUBLIC_API_URL=https://backend-production-3958.up.railway.app/api
+NODE_ENV=production
+
+================================================================================
+✅ DOPO AVER COPIATO LE VARIABILI:
+================================================================================
+
+1. Backend: Vai su "Deployments" → Clicca sui tre puntini → "Redeploy"
+2. Frontend: Vai su "Deployments" → Clicca sui tre puntini → "Redeploy"
+3. Aspetta che finiscano i deploy (2-3 minuti)
+4. Controlla che entrambi siano "Active" (verde)
+
+================================================================================
+🔍 COME TROVARE GLI URL CORRETTI:
+================================================================================
+
+BACKEND URL:
+- Vai su Railway → Servizio "backend"
+- Copia l'URL che vedi in alto (es: backend-production-3958.up.railway.app)
+- Aggiungi /api alla fine → https://backend-production-3958.up.railway.app/api
+
+FRONTEND URL:
+- Vai su Railway → Servizio "frontend"
+- Copia l'URL che vedi in alto (es: frontend-production-f5f8.up.railway.app)
+- Usa così com'è → https://frontend-production-f5f8.up.railway.app
+
+================================================================================
+⚠️ ATTENZIONE:
+================================================================================
+
+- Sostituisci gli URL con quelli REALI del tuo progetto
+- Il JWT_SECRET deve essere una stringa LUNGA (minimo 32 caratteri)
+- Le variabili ${PGHOST}, ${PGPORT}, etc. sono AUTOMATICHE di Railway
+- Non modificare i ${...} nel backend, sono reference al database PostgreSQL
+
+================================================================================
+

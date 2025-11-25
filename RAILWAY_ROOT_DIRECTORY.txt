@@ -1,0 +1,50 @@
+================================================================================
+⚠️ ERRORE: "Missing script: start:prod" - SOLUZIONE
+================================================================================
+
+Railway sta cercando di eseguire dalla ROOT invece che da backend/ e frontend/
+
+SOLUZIONE: Devi configurare la "Root Directory" in Railway per ogni servizio.
+
+================================================================================
+📋 PASSO 1: BACKEND
+================================================================================
+
+1. Vai su Railway Dashboard
+2. Clicca sul servizio "backend"
+3. Vai su tab "Settings" (in alto)
+4. Scorri fino a "Root Directory"
+5. Scrivi: backend
+6. Clicca "Save"
+
+================================================================================
+📋 PASSO 2: FRONTEND
+================================================================================
+
+1. Vai su Railway Dashboard
+2. Clicca sul servizio "frontend"
+3. Vai su tab "Settings" (in alto)
+4. Scorri fino a "Root Directory"
+5. Scrivi: frontend
+6. Clicca "Save"
+
+================================================================================
+📋 PASSO 3: RIAVVIA I SERVIZI
+================================================================================
+
+Dopo aver salvato la Root Directory:
+
+1. Backend: Vai su "Deployments" → Clicca sui tre puntini → "Redeploy"
+2. Frontend: Vai su "Deployments" → Clicca sui tre puntini → "Redeploy"
+
+================================================================================
+✅ DOPO QUESTO, RAILWAY USERÀ I PROCFILE CORRETTI:
+================================================================================
+
+- Backend userà: backend/Procfile
+- Frontend userà: frontend/Procfile
+
+E tutto funzionerà! 🎉
+
+================================================================================
+

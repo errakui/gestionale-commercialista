@@ -1,0 +1,9 @@
+DB_HOST=${PGHOST}
+DB_PORT=${PGPORT}
+DB_USERNAME=${PGUSER}
+DB_PASSWORD=${PGPASSWORD}
+DB_DATABASE=${PGDATABASE}
+JWT_SECRET=chiave_segreta_super_lunga_minimo_32_caratteri_123456789
+FRONTEND_URL=https://frontend-production-f5f8.up.railway.app
+NODE_ENV=production
+

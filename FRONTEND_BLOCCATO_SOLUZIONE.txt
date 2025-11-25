@@ -1,0 +1,92 @@
+================================================================================
+🐌 FRONTEND BLOCCATO - SOLUZIONI
+================================================================================
+
+Se il frontend è bloccato da più di 10 minuti, prova queste soluzioni:
+
+================================================================================
+SOLUZIONE 1: CANCELLA E RICREA IL DEPLOY
+================================================================================
+
+1. Vai su Railway → Servizio "frontend"
+2. Vai su "Deployments"
+3. Clicca sui tre puntini del deploy bloccato
+4. Clicca "Cancel" (se disponibile)
+5. Poi clicca "Redeploy"
+
+================================================================================
+SOLUZIONE 2: VERIFICA LA ROOT DIRECTORY
+================================================================================
+
+1. Vai su Railway → Servizio "frontend"
+2. Vai su "Settings"
+3. Verifica che "Root Directory" sia: frontend
+4. Se non lo è, scrivilo e salva
+5. Poi fai "Redeploy"
+
+================================================================================
+SOLUZIONE 3: CONTROLLA I LOG
+================================================================================
+
+1. Vai su Railway → Servizio "frontend"
+2. Vai su "Deployments"
+3. Clicca "View logs" del deploy bloccato
+4. Cerca errori tipo:
+   - "Out of memory"
+   - "Build failed"
+   - "TypeScript errors"
+   - "Module not found"
+
+================================================================================
+SOLUZIONE 4: AUMENTA LE RISORSE (se necessario)
+================================================================================
+
+1. Vai su Railway → Servizio "frontend"
+2. Vai su "Settings"
+3. Scorri fino a "Resources"
+4. Aumenta RAM a 1GB o 2GB (se disponibile nel tuo piano)
+
+================================================================================
+SOLUZIONE 5: USA BUILD CACHE
+================================================================================
+
+Railway dovrebbe usare automaticamente la cache, ma se il build è troppo lento:
+
+1. Vai su Railway → Servizio "frontend"
+2. Vai su "Settings"
+3. Verifica che "Build Cache" sia abilitato
+
+================================================================================
+⏱️ TEMPI NORMALI:
+================================================================================
+
+- npm install: 1-2 minuti
+- next build: 2-5 minuti
+- Totale: 3-7 minuti
+
+Se supera i 10 minuti, c'è un problema.
+
+================================================================================
+🔍 COSA CONTROLLARE NEI LOG:
+================================================================================
+
+Cerca questi messaggi:
+- "Compiling..." → Build in corso (normale)
+- "Build completed" → Build finito (dovrebbe partire dopo)
+- "Error" → C'è un errore (condividi il log)
+- "Out of memory" → Serve più RAM
+- "Module not found" → Dipendenza mancante
+
+================================================================================
+✅ DOPO AVER APPLICATO LE MODIFICHE:
+================================================================================
+
+Ho ottimizzato:
+- next.config.js (output standalone)
+- Procfile (NODE_ENV production)
+- nixpacks.toml (npm ci più veloce)
+
+Fai un nuovo deploy e dovrebbe essere più veloce!
+
+================================================================================
+
